@@ -12,27 +12,23 @@ def transformation_floor_b(b: int, c: int, d: float):
 
 
 def main():
-
-    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'k', 'c', 'r', 'k']
-
-    for i in range(-100, 100):
-        for j in range(-100, 100):
+    colorValue = 0
+    endRange = 100
+    for i in range(0, endRange):
+        for j in range(0, endRange):
             k = 0.0
-            colorCounter = 0
             while k < 1:
                 if round(k, 4) == 1.0:
                     k = 0.9
                 else:
                     k = round(k, 4)
-                
-                print(i, j, k)
                 a, b, c = transformation_floor_b(i, j, k)
-                color = colors[colorCounter]
                 if (a.is_integer() and b.is_integer()):
-                    plt.plot(a, b, marker="o", markersize=1, markeredgecolor=color, markerfacecolor=color)
-                    plt.plot(a, c, marker="o", markersize=1, markeredgecolor=color, markerfacecolor=color)
-                k += .1
-                colorCounter += 1
+                    plt.plot(a, b, marker="o", markersize=1, markeredgecolor=str(colorValue), markerfacecolor=str(colorValue))
+                    plt.plot(a, c, marker="o", markersize=1, markeredgecolor=str(colorValue), markerfacecolor=str(colorValue))
+                k += .01
+            colorValue += 1/(endRange ** 2)
+            print(colorValue)
     print("Done")
     plt.show()
 
