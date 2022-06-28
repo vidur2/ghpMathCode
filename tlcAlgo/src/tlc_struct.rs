@@ -1,4 +1,4 @@
-use std::sync::{Mutex, Arc};
+use std::{sync::{Mutex, Arc}, thread};
 
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
 pub struct Tlc(String);
@@ -11,7 +11,7 @@ impl Tlc {
     pub fn check_all(self) -> Vec<Self> {
 
         let ret_vec: Arc<Mutex<Vec<Self>>> = Arc::new(Mutex::new(Vec::new()));
-
+    
         if self.0.ends_with("L") {
             ret_vec.lock().unwrap().push(self.clone().append_c());
         }
@@ -20,16 +20,22 @@ impl Tlc {
         let ret_vec_sing = Arc::clone(&ret_vec);
 
         let inner = self.clone();
-        for i in inner.replace_lll().iter() {
-            ret_vec_sing.lock().unwrap().push(i.clone());
-        };
+
+        thread::spawn(move || {
+            for i in inner.replace_lll().iter() {
+                ret_vec_sing.lock().unwrap().push(i.clone());
+            };
+        });
 
         let ret_vec_sing  = Arc::clone(&ret_vec);
 
         let inner = self.clone();
-        for i in inner.remove_cc() {
-            ret_vec_sing.lock().unwrap().push(i.clone())
-        }
+
+        thread::spawn(move || {
+            for i in inner.remove_cc() {
+                ret_vec_sing.lock().unwrap().push(i.clone())
+            }
+        });
 
         return ret_vec.lock().unwrap().clone();
     }
@@ -37,7 +43,7 @@ impl Tlc {
     fn append_c(self) -> Self {
         let mut scoped = self.0.clone();
         scoped.push('C');
-        return self.clone()
+        return Tlc::new(scoped)
     }
 
     fn repeat_seq(self) -> Self {

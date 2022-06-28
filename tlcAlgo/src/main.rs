@@ -5,7 +5,7 @@ use std::{collections::{HashSet, VecDeque}, rc::Rc};
 
 fn main() {
     let mut visited: HashSet<Rc<Tlc>> = HashSet::new();
-    let mut queue: VecDeque<Rc<Tlc>> = VecDeque::from([Rc::new(Tlc::new(String::from("TC")))]);
+    let mut queue: VecDeque<Rc<Tlc>> = VecDeque::from([Rc::new(Tlc::new(String::from("TL")))]);
     let mut current;
 
     loop {
