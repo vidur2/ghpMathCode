@@ -1,7 +1,9 @@
+use std::{collections::HashSet, hash::Hash};
+
 #[derive(Clone, Eq, Hash, PartialEq, Debug)]
 pub struct RubixCube {
-    top_face: Vec<Vec<bool>>,
-    bottom_face: Vec<Vec<bool>>,
+    pub top_face: Vec<Vec<bool>>,
+    pub bottom_face: Vec<Vec<bool>>,
 }
 
 impl RubixCube {
@@ -18,6 +20,29 @@ impl RubixCube {
                 vec![false, false, false],
             ],
         }
+    }
+
+    pub fn generate_all_possibilities() -> HashSet<Vec<Vec<bool>>> {
+        let mut ret_possibilities: HashSet<Vec<Vec<bool>>> = HashSet::new();
+        let mut stack: Vec<Vec<Vec<bool>>> = vec![Self::new().top_face];
+
+        while stack.len() != 0 {
+            let current = stack.pop().unwrap();
+            ret_possibilities.insert(current.clone());
+            for i in 0..3 {
+                for j in 0..3 {
+                    if i != 1 || j != 1  {
+                        let mut mut_current = current.clone();
+                        mut_current[i][j] = !mut_current[i][j];
+
+                        if !ret_possibilities.contains(&mut_current) {
+                            stack.push(mut_current)
+                        }
+                    }
+                }
+            }
+        }
+        return ret_possibilities;
     }
 
     pub fn step(&self) -> Vec<Self> {
