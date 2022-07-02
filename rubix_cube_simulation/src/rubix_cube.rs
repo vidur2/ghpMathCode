@@ -42,21 +42,21 @@ impl RubixCube {
     fn transform_rubix_cube(&mut self, row: bool, index: usize) {
         if row {
             let top_row = &self.top_face[index];
-            let bottom_row = &self.bottom_face[index];
+            let bottom_row = &self.bottom_face[2 - index];
 
             let mut replacement_top: Vec<bool> = Vec::new();
             let mut replacement_bottom: Vec<bool> = Vec::new();
 
-            for elem in top_row.iter().rev() {
+            for elem in top_row.iter() {
                 replacement_bottom.push(*elem)
             }
 
-            for elem in bottom_row.iter().rev() {
+            for elem in bottom_row.iter() {
                 replacement_top.push(*elem)
             }
 
             self.top_face[index] = replacement_top;
-            self.bottom_face[index] = replacement_bottom
+            self.bottom_face[2 - index] = replacement_bottom
         } else {
             let mut replacement_top: Vec<bool> = Vec::new();
             let mut replacement_bottom: Vec<bool> = Vec::new();
@@ -66,11 +66,11 @@ impl RubixCube {
             }
 
             for elem in self.bottom_face.iter().rev() {
-                replacement_top.push(elem[index])
+                replacement_top.push(elem[2 - index])
             }
 
             for (idx, elem) in replacement_bottom.iter().enumerate() {
-                self.bottom_face[idx][index] = *elem
+                self.bottom_face[idx][2 - index] = *elem
             }
 
             for (idx, elem) in replacement_top.iter().enumerate() {
