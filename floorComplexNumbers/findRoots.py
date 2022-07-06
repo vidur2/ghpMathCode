@@ -57,18 +57,8 @@ def getRoots(path: str):
 			adjustedRoot = adjustPoint(minLoc2, gray)
 			print(path.split(".png")[0] + ": " + str(adjustedRoot))
 			roots.append(adjustedRoot)
-		# print(path.split(".png")[0] + ": " + str(adjustPoint(minLoc2, gray)))
-	# # display the results of the naive attempt
-	# # apply a Gaussian blur to the image then find the brightest
-	# # region
-	# gray = cv2.GaussianBlur(gray, (args["radius"], args["radius"]), 0)
-	# (minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(gray)
-	# image = orig.copy()
-	# cv2.circle(image, maxLoc, args["radius"], (255, 0, 0), 2)
-	# display the results of our newly improved method
-	cv2.imshow("Robust", image)
-	cv2.waitKey(1)
-	cv2.destroyAllWindows()
+	# cv2.imshow("Robust", image)
+	# cv2.waitKey(1)
 	return roots
 
 def test():
