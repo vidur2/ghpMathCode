@@ -19,6 +19,7 @@ def main():
     # Setting variables
     endRange = 8
     b = -endRange
+    interval = 1
 
     # List for storing roots
     roots = []
@@ -30,26 +31,48 @@ def main():
                 path = rc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}') # 
                 dc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}')
                 roots += getRoots(path)
+                plt.figure().clear()
+                plt.close()
+                plt.cla()
+                plt.clf()
                 print(roots)
-                c+=.1
-            b += .1
+                c+= interval
+            b += interval
 
     finally:
         cv2.destroyAllWindows()
-        x = [ele.real for ele in roots]
-        y = [ele.imag for ele in roots]
+        x1 = []
+        y1 = []
+        x2 = []
+        y2 = []
+        thresh = .25
 
-        print(x)
-        print(y)
+        for ele in roots:
+            if ele.imag < thresh:
+                if ele.real > thresh:
+                    x1.append(ele.real)
+                    y1.append(ele.imag)
+                
+                elif ele.real < -thresh:
+                    x2.append(ele.real)
+                    y2.append(ele.imag)
+
         plt.figure().clear()
         plt.close()
         plt.cla()
         plt.clf()
         
-        plt.scatter(x, y)
+        plt.scatter(x1, y1)
         plt.ylabel('Imaginary')
         plt.xlabel('Real')
         plt.savefig("./correlation_plot")
+
+        plt.scatter(x2, y2)
+        plt.ylabel('Imaginary')
+        plt.xlabel('Real')
+        plt.savefig("./correlation_plot2")
+
+        fit = np.polyfit(np.log(x1), y1, )
 
 
 if __name__ == "__main__":
