@@ -50,14 +50,14 @@ def main():
         thresh = .25
 
         for ele in roots:
-            if ele.imag < thresh:
-                if ele.real > thresh:
-                    x1.append(ele.real)
-                    y1.append(ele.imag)
-                
-                elif ele.real < -thresh:
-                    x2.append(ele.real)
-                    y2.append(ele.imag)
+            # if ele.imag < thresh:
+            if ele.real > thresh:
+                x1.append(ele.real)
+                y1.append(ele.imag)
+            
+            elif ele.real < -thresh:
+                x2.append(ele.real)
+                y2.append(ele.imag)
 
         plt.figure().clear()
         plt.close()
@@ -88,7 +88,7 @@ def main():
         # plt.ylabel('Imaginary')
         # plt.xlabel('Real')
 
-        plt.savefig("./correlation_plot")
+        plt.savefig("./correlation_plot2")
 
 if __name__ == "__main__":
     main()
