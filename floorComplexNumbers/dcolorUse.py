@@ -3,6 +3,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+import logisticRegr
 
 sys.path.insert(0, './dcolor')
 
@@ -12,12 +13,13 @@ from findRoots import getRoots
 
 def main():
 
-    # Objects for plotting
-    rc = rgbcolor.DColor()
-    dc = dcolor.DColor()
-
     # Setting variables
-    endRange = 8
+    endRange = 20
+
+    # Objects for plotting
+    rc = rgbcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
+    dc = dcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
+
     b = -endRange
     interval = 1
 
@@ -30,7 +32,7 @@ def main():
             while c < endRange:
                 path = rc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}') # 
                 dc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}')
-                roots += getRoots(path)
+                roots += getRoots(path, endRange)
                 plt.figure().clear()
                 plt.close()
                 plt.cla()
@@ -65,15 +67,28 @@ def main():
         plt.scatter(x1, y1)
         plt.ylabel('Imaginary')
         plt.xlabel('Real')
-        plt.savefig("./correlation_plot")
+        # plt.savefig("./correlation_plot")
 
         plt.scatter(x2, y2)
         plt.ylabel('Imaginary')
         plt.xlabel('Real')
-        plt.savefig("./correlation_plot2")
 
-        fit = np.polyfit(np.log(x1), y1, )
+        # regr_func_1 = logisticRegr.loga_regr(x1, y1)
+        # regr_func_2 = logisticRegr.loga_regr(x2, y2)
 
+        # xPlot = np.linspace(thresh, 2)
+
+        # plt.plot(xPlot, regr_func_1(xPlot))
+        # plt.ylabel('Imaginary')
+        # plt.xlabel('Real')
+
+        # xPlot = np.linspace(-thresh, -2)
+
+        # plt.plot(xPlot, regr_func_2(xPlot))
+        # plt.ylabel('Imaginary')
+        # plt.xlabel('Real')
+
+        plt.savefig("./correlation_plot")
 
 if __name__ == "__main__":
     main()

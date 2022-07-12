@@ -1,12 +1,11 @@
-use core::num;
-use std::{collections::{HashSet, VecDeque}, hash::Hash};
+use std::collections::{HashSet, VecDeque};
 
 use cube::Cube;
 
 mod cube;
 
 fn main() {
-    let cube = Cube::new(2,2, 2);
+    let cube = Cube::new(2, 2, 2);
 
     let mut stack: VecDeque<Cube> = VecDeque::new();
     let mut visited: HashSet<Cube> = HashSet::new();
@@ -46,9 +45,9 @@ fn main() {
 fn index(cube: &Cube, hash_set: &Vec<Cube>) -> isize {
     for (idx, cube_check) in hash_set.iter().enumerate() {
         if cube == cube_check {
-            return idx as isize
+            return idx as isize;
         }
     }
 
-    return -1
+    return -1;
 }

@@ -1,0 +1,1 @@
+Implementation of Kirchoff's Algorithm on a rubix cube to find spanning trees through it
