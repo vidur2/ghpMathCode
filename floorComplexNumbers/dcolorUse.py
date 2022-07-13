@@ -3,7 +3,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-import logisticRegr
+import logisticRegr, func_powerlaw
 
 sys.path.insert(0, './dcolor')
 
@@ -50,15 +50,10 @@ def main():
         thresh = .25
 
         for ele in roots:
-            # if ele.imag < thresh:
-            if ele.real > thresh:
-                x1.append(ele.real)
-                y1.append(ele.imag)
-            
-            elif ele.real < -thresh:
-                x2.append(ele.real)
-                y2.append(ele.imag)
+            x1.append(ele.real)
+            y1.append(ele.imag)
 
+    
         plt.figure().clear()
         plt.close()
         plt.cla()
@@ -68,12 +63,7 @@ def main():
         plt.ylabel('Imaginary')
         plt.xlabel('Real')
         # plt.savefig("./correlation_plot")
-
-        plt.scatter(x2, y2)
-        plt.ylabel('Imaginary')
-        plt.xlabel('Real')
-
-        # regr_func_1 = logisticRegr.loga_regr(x1, y1)
+        regr_func_1 = logisticRegr.loga_regr(x1, y1)
         # regr_func_2 = logisticRegr.loga_regr(x2, y2)
 
         # xPlot = np.linspace(thresh, 2)
@@ -82,13 +72,13 @@ def main():
         # plt.ylabel('Imaginary')
         # plt.xlabel('Real')
 
-        # xPlot = np.linspace(-thresh, -2)
+        xPlot = np.linspace(-thresh, -2)
 
-        # plt.plot(xPlot, regr_func_2(xPlot))
+        plt.plot(xPlot, func_powerlaw(xPlot, regr_func_1[0], regr_func_1[1], regr_func_1[2]))
         # plt.ylabel('Imaginary')
         # plt.xlabel('Real')
 
-        plt.savefig("./correlation_plot2")
+        plt.savefig("./final_correlation")
 
 if __name__ == "__main__":
     main()
