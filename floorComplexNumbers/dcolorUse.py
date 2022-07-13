@@ -30,8 +30,8 @@ def main():
         while b < endRange:
             c = -endRange
             while c < endRange:
-                path = rc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}') # 
-                dc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}')
+                path = rc.plot(lambda z, floor_z: floor_z**2 + b*z + c, metadata=f'z^2 + {b}[z] + {c}') # 
+                dc.plot(lambda z, floor_z: floor_z**2 + b*z + c, metadata=f'z^2 + {b}[z] + {c}')
                 roots += getRoots(path, endRange)
                 plt.figure().clear()
                 plt.close()
