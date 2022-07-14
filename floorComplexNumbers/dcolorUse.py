@@ -3,7 +3,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-import logisticRegr, func_powerlaw
+import logisticRegr
 
 sys.path.insert(0, './dcolor')
 
@@ -14,7 +14,7 @@ from findRoots import getRoots
 def main():
 
     # Setting variables
-    endRange = 20
+    endRange = 8
 
     # Objects for plotting
     rc = rgbcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
@@ -30,8 +30,8 @@ def main():
         while b < endRange:
             c = -endRange
             while c < endRange:
-                path = rc.plot(lambda z, floor_z: floor_z**2 + b*z + c, metadata=f'z^2 + {b}[z] + {c}') # 
-                dc.plot(lambda z, floor_z: floor_z**2 + b*z + c, metadata=f'z^2 + {b}[z] + {c}')
+                path = rc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}') # 
+                dc.plot(lambda z, floor_z: z**2 + b*floor_z + c, metadata=f'z^2 + {b}[z] + {c}')
                 roots += getRoots(path, endRange)
                 plt.figure().clear()
                 plt.close()
@@ -74,7 +74,7 @@ def main():
 
         xPlot = np.linspace(-thresh, -2)
 
-        plt.plot(xPlot, func_powerlaw(xPlot, regr_func_1[0], regr_func_1[1], regr_func_1[2]))
+        # plt.plot(xPlot, func_powerlaw(xPlot, regr_func_1[0], regr_func_1[1], regr_func_1[2]))
         # plt.ylabel('Imaginary')
         # plt.xlabel('Real')
 

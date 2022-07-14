@@ -59,8 +59,8 @@ def getRoots(path: str, scale: int):
 			adjustedRoot = adjustPoint(minLoc2, gray, scale)
 			print(path.split(".png")[0] + ": " + str(adjustedRoot))
 			roots.append(adjustedRoot)
-	# cv2.imshow("Complex Graphs", image)
-	# cv2.waitKey(1)
+	cv2.imshow("Complex Graphs", image)
+	cv2.waitKey(1)
 	return roots
 
 def test():
