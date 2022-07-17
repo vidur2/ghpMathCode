@@ -36,7 +36,6 @@ def getRoots(path: str, scale: int):
 	pixelRoots = []
 	# load the image and convert it to grayscale
 	image = cv2.imread(path)
-	orig = image.copy()
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 	# # perform a naive attempt to find the (x, y) coordinates of
@@ -59,8 +58,8 @@ def getRoots(path: str, scale: int):
 			adjustedRoot = adjustPoint(minLoc2, gray, scale)
 			print(path.split(".png")[0] + ": " + str(adjustedRoot))
 			roots.append(adjustedRoot)
-	cv2.imshow("Complex Graphs", image)
-	cv2.waitKey(1)
+	# cv2.imshow("Complex Graphs", image)
+	# cv2.waitKey(1)
 	return roots
 
 def test():
