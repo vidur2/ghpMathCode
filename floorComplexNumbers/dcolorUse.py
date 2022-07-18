@@ -15,14 +15,14 @@ from findRoots import getRoots
 def main():
 
     # Setting variables
-    endRange = 15
+    endRange = 2
 
     # Objects for plotting
     rc = rgbcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
     dc = dcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
 
     b = -endRange
-    interval = .5
+    interval = 1
 
     # List for storing roots
     roots = []
@@ -34,14 +34,17 @@ def main():
                 d = -endRange
 
                 while d < endRange:
-                    path = rc.plot(lambda z, floor_z: z**2+ complex(b, d)*floor_z + complex(c, d), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {d}i') # 
-                    dc.plot(lambda z, floor_z: z**2 + complex(b, d)*floor_z + complex(c, d), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {d}i')
-                    roots += getRoots(path, endRange)
-                    plt.close()
-                    plt.figure().clear()
-                    plt.cla()
-                    plt.clf()
-                    print(roots)
+                    f = -endRange
+                    while f < endRange:
+                        path = rc.plot(lambda z, floor_z: z**2+ complex(b, d)*floor_z + complex(c, f), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {f}i') # 
+                        dc.plot(lambda z, floor_z: z**2 + complex(b, d)*floor_z + complex(c, f), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {f}i')
+                        roots += getRoots(path, endRange)
+                        plt.close()
+                        plt.figure().clear()
+                        plt.cla()
+                        plt.clf()
+                        print(roots)
+                        f += interval
                     d += interval
                 c+= interval
             b += interval
