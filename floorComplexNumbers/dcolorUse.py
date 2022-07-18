@@ -37,7 +37,7 @@ def main():
                     f = -endRange
                     while f < endRange:
                         path = rc.plot(lambda z, floor_z: z**2+ complex(b, d)*floor_z + complex(c, f), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {f}i') # 
-                        dc.plot(lambda z, floor_z: z**2 + complex(b, d)*floor_z + complex(c, f), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {f}i')
+                        # dc.plot(lambda z, floor_z: z**2 + complex(b, d)*floor_z + complex(c, f), metadata=f'z^2 + ({b} + {d}i)[z] + {c} + {f}i')
                         roots += getRoots(path, endRange)
                         plt.close()
                         plt.figure().clear()
