@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 import math
 import numpy as np
@@ -5,6 +6,7 @@ import matplotlib.pyplot as plt
 import cv2
 import logisticRegr
 import gc
+import matplotlib
 
 sys.path.insert(0, './dcolor')
 
@@ -12,22 +14,18 @@ import dcolor
 import rgbcolor
 from findRoots import getRoots
 
+from dataclasses import dataclass
+
+@dataclass
 class Root:
-    def __init__(self, roots: list, rgba: tuple):
-        self.roots = roots
-        self.rgba = rgba
+    roots: list
+    rgba: tuple
 
-def main():
-
-    # Setting variables
-    endRange = 3
-
+def calcRoots(endRange, interval):
     # Objects for plotting
     rc = rgbcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
-    dc = dcolor.DColor(xmin=-endRange, xmax=endRange, ymin=-endRange, ymax=endRange)
 
     b = -endRange
-    interval = 1
 
     # List for storing roots
     roots = []
@@ -107,6 +105,14 @@ def main():
             f.write("%s\n" % line)
 
         f.close()
+
+def main():
+
+    # Setting variables
+    endRange = 3
+    interval = 1
+
+    calcRoots(endRange, interval)
 
 if __name__ == "__main__":
     main()

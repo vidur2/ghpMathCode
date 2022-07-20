@@ -9,25 +9,15 @@ sys.path.insert(0, "../dcolor")
 import dcolorUse
 
 app = Flask(__name__)
-AfterResponse(app)
-
-endRange = 0
-interval = 0
 
 @app.route('/get_plot', methods=["POST"])
 def getPlot():
     data = request.form
-    global endRange
-    global interval
-    endRange = data["endRange"]
-    interval = data["interval"]
+    print(data)
+    dcolorUse.calcRoots(float(data["endRange"]), float(data["interval"]))
+    smtpStuff.sendMail(data["emailAddr"])
     return "Done"
 
-@app.after_response
-def runDcolor():
-    dcolorUse.calcRoots(data["endRange"], data["interval"])
-    smtpStuff.sendEmail(data["emailAddr"])
-
 if __name__ == "__main__":
-    app.run(port=5001)
+    app.run(port=5001, threaded=True)
 
